@@ -1,0 +1,44 @@
+Assignment 6
+ID: A11163016
+Name: Peter Tran
+LOGIN: cs11ehc
+
+This assignment tests our ability to manipulate classes and inheritance as well as writing
+into files and using javascript to graph our data.
+
+Part 1 of the assignment had us create a CSV parser which read in a CSV formatted document
+and stored each line of the file into a String array where each value separated by the commas
+were unique. This utilized our knowledge of ArrayLists and fileinput. I was able to successfully 
+compile and run this program and yielded the correct outputs.
+
+USAGE NOTES FOR PART 1:
+The CSV file must be in the format:
+Date, Open, High, Low, Close, Volume, Adj Close
+12/4/2014,531.16,537.34,528.59,537.31,1388300,537.31
+where each line and its values are separated by a comma.
+
+Part 2 of the assignment had us create the function getNextTick() where everytime that the
+method was called it would return the next row of the tick array. This utilized our knowledge
+of member variables and finish the implementation of an unfamiliar class. I was able to 
+successfully compile and run this part of the program.
+
+Part 3 of the assignment had us create an analysis tool which would create two subclasses
+of the StockAnalyzer class. For the LowTickAnalyzer class we created the addValue method
+which store the date and low tick value of the current tick line we are on. Similarily
+our second subclass MeanAnalyzer stored the current date of the tick line and then
+read in the high value of the current tick. Then it would begin to store the current
+10 point moving average it was on, so if there were not 10 values it has come across yet
+it would store 0 for its average. I was able to successfully compile and run this part.
+
+Part 4 of the assignment had us implement the final method in our StockAnalyzer class
+that would write the JSON file for us and then take that file and its data to plot the 
+graph using javascript. This part had us learn how to output to a file and then take that file
+and implement javascript to yield our desired output. To do this, we must type in firefox and then
+the current html file we are on. We did this 3 times using highStocks.html, lowstocks.html and
+meanStocks.html. I was able to successfully able to compile and run this part.
+
+USAGE NOTES FOR PART 4:
+To run this program
+$ javac Driver.java
+$ java Driver
+$ firefox highStock.html

@@ -1,0 +1,167 @@
+/*************************************************************************
+  *      ID: A11163016
+  *	 NAME: Peter Tran 
+  *	 LOGIN: cs11ehc
+  *
+  *	 Compilation:  javac Sudoku.java
+  *	 Execution:	   java Sudoku <table filename>
+  *	 About: Sudoku solver! Given a text file with an unfinished sudoku table
+  *         this program will attempt to solve it.
+  *************************************************************************/
+import java.io.*;
+import java.io.BufferedReader;
+
+public class Sudoku {
+
+	// CreateTable uses a BufferedReader to load a sudoku table.
+	public static int [][] CreateTable(BufferedReader reader)
+		throws IOException {
+
+		int[][] map = new int[9][9];
+		String line = reader.readLine();
+		String[] nums;
+		int j = 0;
+		
+		while(line != null) {
+			nums = line.split(" ");
+			for(int i = 0; i < nums.length; i++) {
+				map[j][i] = Integer.parseInt(nums[i]);
+			}
+
+			j++;
+			line = reader.readLine();
+		}
+
+		return map;
+	}
+
+	public static boolean isFinished(int[][] board) {
+		for(int i = 0; i < 9; i++) {
+			for(int j = 0; j < 9; j++) {
+				if(board[i][j] == 0)
+					return false;
+			}
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		// check command line arguments
+		if(args.length != 1) {
+			System.out.println("Missing sudoku file.");
+			return;
+		}
+
+		// read in the file from
+		try {
+		    int[][] board,tempboard;
+			File file = new File(args[0]);
+			FileReader fileReader = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fileReader);
+			// copy the data
+			board = CreateTable(reader);
+			tempboard=CreateTable(reader);
+			fileReader.close();
+
+			// Solve the sudoku problem here.
+			int r, c, c1, r1;
+			int notHere = 0, validNumber = 0;
+			boolean rowValid = true,colValid = true,blockValid = true;
+		       
+  while(isFinished(board)==false){			
+      for(r = 0; r < 9; r++){
+	  for(c = 0; c < 9; c++){
+	      //Checks for spaces not filled in yet
+	      if(board[r][c]==0){
+		  //Cycles through numbers from 1..9 to find
+	          //a valid number
+	          for(board[r][c]=1;board[r][c]<=9;board[r][c]++){
+		      //Checks if number doesn't appear in row
+	              for(c1=0;c1<9;c1++){
+			  if(c==c1){
+			      continue;
+			  }
+		          else if(board[r][c]==board[r][c1]){
+			      rowValid = false;
+			      break;
+			  }
+		          else{
+			      rowValid = true;
+			  }
+		      }
+		      //Checks if number doesn't appear in column
+		      for(r1=0;r1<9;r1++){
+			  if(r==r1){
+			      continue;
+			  }
+		          else if(board[r][c]==board[r1][c]){
+			      colValid = false;
+			      break;
+			  }
+		          else{
+			      colValid = true;
+			  }
+		      }
+		      //Checks if number doesnt appear in its
+		      //respective 3x3 square
+		      for(r1=r-r%3;r1<=r-r%3+2;r1++){
+			  for(c1=c-c%3;c1<=c-c%3+2;c1++){
+			      if(r==r1 && c==c1){
+				  continue;
+			      }
+			      else if(board[r][c]==board[r1][c1]){
+			          blockValid = false;
+			          break;
+			      }
+			      else{
+			          blockValid=true;
+			      }
+			  }
+		          if(!blockValid){
+			      break;
+			  }
+		      }
+		      //Keeps track of how many valid numbers there are
+		      if(colValid && rowValid && blockValid){
+			  notHere++;
+		          validNumber = board[r][c];
+		      }
+		  }
+		  //Assigns a value to the board if there is only
+	          //one valid number and 0 if there are none or more 
+	          //than one valid number
+		  if(notHere==1){
+		      board[r][c]=validNumber;
+		      notHere=0;
+		  }
+	          else if(notHere!=1){
+		      board[r][c]=0;
+		      notHere=0;
+		  }
+	      }
+	  }
+      }
+      //Exits out of loop if board is completed
+      if(isFinished(board)==true){
+	 //Sudoku solved!
+	 break;
+      }
+  }
+
+    for(r = 0; r < 9; r++){
+	for(c = 0; c < 9; c++){
+	    System.out.print(board[r][c] + " ");
+	}
+	System.out.println("");
+    }
+		
+		   
+
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+
+		return;
+	}
+}

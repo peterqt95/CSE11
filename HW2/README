@@ -1,0 +1,10 @@
+Assignment 2
+ID: A11163016
+Name: Peter Tran
+LOGIN: cs11ehc
+
+This assignment tests further tests our understanding of control flow statements.
+
+Part 1 was a food ordering program which tested our understanding of switch     statements. I was able to finish this part as well as able to compile the       program. The program successfully does as the program is intended to with no    errors. 
+
+Part 2 was a sky drawing program which tested our abilities to utilize if-else  statements and using new functions in the objectdraw library. I was able to     finish this part as well as able to compile the program. The program correctly  takes a user input for the time of day and then correctly generates a new       environment depending on the user's input.  

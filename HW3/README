@@ -1,0 +1,16 @@
+Assignment 3
+ID: A11163016	
+Name: Peter Tran
+LOGIN: cs11ehc
+
+This assignment tests our ability to manipulate strings as well as use loops.
+
+Part 1 was a guessing game program that tested our understanding of loops.
+With the use of a while loop and some conditional statements, I was able to 
+complete this part of the assignment as well as compiling and running 
+successfully.
+
+Part 2 was a string parsing program that tested our ability to use loops and
+manipulation of strings.  Using a while loop and some String class methods,
+I was successfully able to compile and run this program as well as obtaining
+the correct outputs.  

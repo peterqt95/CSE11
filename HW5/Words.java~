@@ -1,0 +1,297 @@
+/*************************************************************************
+ * ID: A11163016 
+ * NAME: Peter Tran
+ * LOGIN: cs11ehc
+ *
+ * Compilation:  javac Words.java
+ * Execution:    java Words
+ * About: 
+ *************************************************************************/
+
+
+import java.util.Random;
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+
+public class Words {
+    static final int MAX_LETTERS = 6;
+    static final String FILE = "/home/linux/ieng6/cs11e/public/words";
+    static Random randGen = null;
+
+    /**
+     * gets a single random weighted character
+     *  provided by instructor
+     *
+     * @return char - the random weighted char
+     * @see http://en.wikipedia.org/wiki/Scrabble_letter_distributions#English
+     */
+    public static char getLetter() {
+	int rand = randGen.nextInt(197);
+
+	if(rand >= 0 && rand <= 15) return 'A';
+	else if (rand >= 16 && rand <= 19) return 'B';
+	else if (rand >= 20 && rand <= 25) return 'C';
+	else if (rand >= 26 && rand <= 33) return 'D';
+	else if (rand >= 34 && rand <= 57) return 'E';
+	else if (rand >= 58 && rand <= 61) return 'F';
+	else if (rand >= 62 && rand <= 66) return 'G';
+	else if (rand >= 67 && rand <= 71) return 'H';
+	else if (rand >= 72 && rand <= 84) return 'I';
+	else if (rand >= 85 && rand <= 86) return 'J';
+	else if (rand >= 87 && rand <= 88) return 'K';
+	else if (rand >= 89 && rand <= 96) return 'L';
+	else if (rand >= 97 && rand <= 102) return 'M';
+	else if (rand >= 103 && rand <= 115) return 'N';
+	else if (rand >= 116 && rand <= 130) return 'O';
+	else if (rand >= 131 && rand <= 134) return 'P';
+	else if (rand >= 135 && rand <= 136) return 'Q';
+	else if (rand >= 137 && rand <= 149) return 'R';
+	else if (rand >= 150 && rand <= 159) return 'S';
+	else if (rand >= 160 && rand <= 174) return 'T';
+	else if (rand >= 175 && rand <= 181) return 'U';
+	else if (rand >= 182 && rand <= 184) return 'V';
+	else if (rand >= 185 && rand <= 188) return 'W';
+	else if (rand >= 189 && rand <= 190) return 'X';
+	else if (rand >= 191 && rand <= 194) return 'Y';
+	else if (rand >= 195 && rand <= 196) return 'Z';
+	else {
+	    System.out.println("Something went wrong!");
+	    return '?';
+	}	 	    
+    }
+    
+    /**
+     * Checks if the word entered is present in the dictionary
+     *
+     * @param word is the word being checked 
+     * @return boolean value saying if word is in dictionary
+     */
+    public static boolean checkWord(String word) throws IOException{
+	boolean valid = false;
+	String[] dictionary = getDictionary();
+	for(int i = 0; i < dictionary.length; i++){
+	    if(word.equals(dictionary[i])){
+		    valid = true;
+		    break;
+	    }
+	}
+	return valid;
+	
+    }
+    
+    /**
+     * Returns an array of Strings that has all the words
+     * in the dictionary
+     *
+     * @return String[] - consisting of words from dictionary
+     * @see "http://tutorialspoint.com/java/java_files_io.htm"
+     */
+    public static String[] getDictionary() throws IOException{
+	int size = 0;
+	Scanner inFS = null;
+	FileInputStream fileByteStream = null;
+	String[] dictionary;
+
+
+	    fileByteStream = new FileInputStream(FILE);
+	    
+	inFS = new Scanner(fileByteStream);
+
+	size = inFS.nextInt();
+	dictionary = new String[size];
+	for(int i = 0; i < size; i++){
+	    dictionary[i] = inFS.nextLine();
+	}
+	
+	
+	fileByteStream.close();
+	
+	
+	return dictionary;
+    }
+
+    /**
+     * Returns the longest word that can be made from the letters 
+     * that you have.  The longest String length returned is 6
+     * and the shortest String length returned is 1.
+     *
+     * @param myWords are the words that you have
+     * @return String - longest word that was found in myWords
+     * @see "http://en.wikipedia.org/wiki/Anagram"
+     */
+    public static String findLongWord(char[] myWords) throws IOException{
+        String[] dictionary = getDictionary();
+	int x = 6;
+	String word = "";
+	boolean isPresent = false;
+	char[] original = new char[MAX_LETTERS];
+	restoreOriginal(myWords, original);
+	while(x!=0){
+	    for(int i = 0; i < dictionary.length; i++){
+		if(dictionary[i].length()==x){
+		    word = dictionary[i];
+		    isPresent = checkLetter(myWords,word);
+
+		    if(isPresent){
+			return word;
+		    }		
+		}
+
+		else{
+		    continue;
+		}
+
+		restoreOriginal(original, myWords);
+	    }
+	    x--;
+	}
+	return word;
+    }
+    
+    /**
+     * Replaces your current array with your original array
+     * that you had started with.
+     *
+     * @param orig stores your original values, temp has current values
+     */
+    public static void restoreOriginal(char[] orig, char[] temp){
+	for(int i = 0; i < MAX_LETTERS; i++){
+	    temp[i] = orig[i];
+	}
+	return;
+    }
+
+    /**
+     * Checks to see if the characters you have in are present
+     * in the word that you are checking.
+     *
+     * @param myWords - available letters you have, word - word to be checked
+     * @return boolean - whether or not you have the characters to make word
+     */
+    public static boolean checkLetter(char[] myWords, String word){
+	boolean isPresent = false;
+	for(int i = 0; i < word.length(); i++){
+	    for(int j = 0; j < MAX_LETTERS; j++){
+		if(word.charAt(i) == myWords[j]){
+		    myWords[j] = ' ';
+		    isPresent = true;
+		    break;
+		}
+		else{
+		    isPresent = false;
+		}
+	    }
+	    if(!isPresent){
+		isPresent = false;
+		break;
+	    }
+	}
+
+	return isPresent;
+    }
+    
+    /**
+     * Asks for user input to be either a menu option or a word that can
+     * be made out of your current characters. If '1' is inputted, it calls
+     * findLongWord. If '2' is inputted, it randomly creates a new array of
+     * characters available to you. If '3' is entered, program quits. If a
+     * word is inputted, calls checkLetter and checkWord to see if is a valid 
+     * word, adds points equal to the inputted words length, and replaces the 
+     * characters you used with new letters.  If not valid, calls restoreOriginal 
+     * and returns back the original characters you had.
+     *
+     * @param args command line arguments
+     * @see "http:\\en.wikipedia.org/wiki/Scrabble"
+     */
+    public static void main(String[] args) throws IOException{
+	int points = 0, length = 0;
+	boolean isPresent = false;
+	char[] longWord = new char[MAX_LETTERS];
+	String longest = "something";
+	String word = "";
+	String blank = "        ";
+	Scanner scnr = new Scanner(System.in);
+	
+	randGen = new Random();
+	randGen.setSeed(0);
+		
+	char[] myWords = new char[MAX_LETTERS];
+	char[] temp = new char[MAX_LETTERS];
+        for(int i = 0; i < MAX_LETTERS; i++){
+	    myWords[i] = getLetter();
+	    longWord[i] = myWords[i];
+	}
+	
+	//Creates menu
+	System.out.println("");
+	for(int i = 0; i < 37; i++){
+	    System.out.print("-");
+	}
+	System.out.println("");
+	System.out.println("-- " + blank + "WORDS WITH CSE11" + blank + "--");
+	for(int i = 0; i < 37; i ++){
+	    System.out.print("-");
+	}
+	System.out.println("");
+	System.out.println("-- Enter \"1\" for computer help     --");
+	System.out.println("-- Enter \"2\" for all new letters   --");
+	System.out.println("-- Enter \"3\" to quit game          --");
+
+	//The stuffs
+	while(!word.equals("3")){
+	    System.out.println("");
+	    for(int i = 0; i < MAX_LETTERS; i++){
+		temp[i] = myWords[i];
+		System.out.print(myWords[i]+" ");
+	    }
+
+	    System.out.print("\nYour turn (" + points + "): ");
+	    word = scnr.nextLine();
+	    length = word.length();
+	
+	    if(word.equals("3")){
+		System.out.println("Goodbye");
+		break;
+	    }
+	    else if(word.equals("2")){
+		for(int i = 0; i < MAX_LETTERS; i++){
+		    myWords[i] = getLetter();
+		}
+		continue;
+	    }
+	    else if(word.equals("1")){
+		System.out.println("Thinking...");
+		System.out.println("We suggest using: ");
+		longest = findLongWord(myWords);
+		System.out.println(longest);
+		restoreOriginal(temp, myWords);
+		continue;
+	    }
+		    
+	    isPresent = checkLetter(myWords, word);
+
+	    if(!isPresent){
+		System.out.println("You don't have those letters");
+		restoreOriginal(temp, myWords);
+	    }
+	    else if(checkWord(word) && isPresent){
+		System.out.println("Valid letter(s) and word");
+		points+=word.length();
+		for(int j = 0; j < MAX_LETTERS; j++){
+		    if(myWords[j] == ' '){
+			myWords[j] = getLetter();
+		    }
+		}
+	    }
+	    else{
+		System.out.println("That's not a valid word!");
+		restoreOriginal(temp, myWords);
+	    }
+   
+	}
+	
+    }
+
+}

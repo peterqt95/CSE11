@@ -1,0 +1,20 @@
+Assignment 6
+ID: A11163016
+Name: Peter Tran
+LOGIN: cs11ehc
+
+This assignment tests our ability to manipulate classes and inheritance as well as writing
+into files and using javascript to graph our data.
+
+Part 1 of the assignment had us create a CSV parser which read in a CSV formatted document
+and stored each line of the file into a String array where each value separated by the commas
+were unique. This utilized our knowledge of ArrayLists and fileinput. I was able to successfully 
+compile and run this program and yielded the correct outputs.
+
+USAGE NOTES FOR PART 1:
+The CSV file must be in the format:
+Date, Open, High, Low, Close, Volume, Adj Close
+12/4/2014,531.16,537.34,528.59,537.31,1388300,537.31
+where each line and its values are separated by a comma.
+
+Part 2 of the assignment

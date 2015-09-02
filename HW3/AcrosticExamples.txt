@@ -1,0 +1,37 @@
+Input:
+101211232123
+
+Output:
+1
+12
+123
+Code: 123
+
+Input:
+52hello51linda71how are73things?
+
+Output:
+hello
+linda
+how are
+things?
+Code: lion
+
+Input:
+60be11s!74eagles!72the car93is parked
+
+Output:
+be11s!
+eagles!
+the car
+is parked
+Code: beep
+
+Input:
+30abc41a bc40beep
+
+Output:
+abc
+a bc
+beep
+Code: a b

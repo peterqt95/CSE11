@@ -1,0 +1,31 @@
+Assignment 5
+ID: A11163016
+Name: Peter Tran
+LOGIN: cs11ehc
+
+This assignment tests our ability to manipulate arrays, implement methods, and use
+of file input streams.
+
+Part 1 of the assignment was to create a program similair to Scrabble which 
+tested our implementation of methods and array manipulation. The program checks
+whether or not the inputed word can be created from the characters given to you
+by checking the .txt file given to you and adds up points that are made up of the 
+total valid word length entered. Menu options 2 and 3 are available in this part 
+where option 2 gives you a brand new set of letters to work with and option 3 exits 
+the game. I was able to successfully complete, compile and run this part of the 
+assignment.
+
+Part 2 of the assignment checks the array of characters you have and trys to find
+the longest word possible made from those characters.  The maximum length returned
+can be of length 6 and minimum length 1. It cycles through the .txt file given to us 
+and pulls out all the words with length 6 and sees if it can be constructed from 
+the letters that we have. If there is no valid word, we cycle through the dictionary
+again but checking the next largest possible word length which would be 5. The program
+continues to cycle through the dicitonary until a valid word is found and will always
+return at least a word of length 1. I was able to successfully complete, compile and
+run this part of the assignment.
+
+USAGE NOTES:
+The .txt file used must have the first line of the file must be an integer value that
+indicates the amount of words in the .txt file. Each word must individually be on its
+own line so that it can be inputted into a String array.

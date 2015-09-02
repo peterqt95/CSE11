@@ -1,0 +1,76 @@
+/*************************************************************************
+  *  ID: A11163016 
+  *  NAME: Peter Tran
+  *  LOGIN: cs11ehc
+  *
+  *  Compilation:  javac -cp objectdraw.jar:. Sky.java
+  *  Execution:    java -cp objectdraw.jar:. Sky
+  *  Requires: objectdraw.jar
+  *  About:  Draws the sky depending on the time of day.
+  *************************************************************************/
+import objectdraw.*;
+import java.awt.*;
+import java.util.Scanner;
+
+public class Sky extends WindowController {
+    public static final int FRAME_HEIGHT = 400;
+    public static final int FRAME_WIDTH = 400;
+    public static final int PADDING = 55;
+    public static final int SUN_DIAMETER = 50;
+
+    /* The begin method is called automatically by Java after
+     *  startController() is executed within the main() method. 
+     *  You'll only need to add code within this function to
+     *  complete the assignment. 
+     */
+    public void begin() {
+
+	int input = 0;
+        Scanner scnr = new Scanner(System.in);
+
+        // create the grass
+        FilledRect grass = new FilledRect(0, FRAME_HEIGHT/2, FRAME_WIDTH, 
+                                          FRAME_HEIGHT/2, canvas);
+        grass.setColor(new Color(0,255,0));
+
+        // create the sky
+	FilledRect sky = new FilledRect(0, 0, FRAME_WIDTH, FRAME_HEIGHT/2,
+					canvas);
+
+        // First, ask the user for the hour number...
+	System.out.println("What time of day is it?");
+	input = scnr.nextInt();
+	
+	if((input >= 0 && input < 6) || (input >= 18 && input <= 24)){
+	    sky.setColor(new Color(0,0,0));
+	}
+	else if(input >= 6 && input < 10){
+	    sky.setColor(new Color(0,0,255));
+	    FilledOval sun = new FilledOval(0, 0, SUN_DIAMETER,
+					    SUN_DIAMETER, canvas);
+	    sun.setColor(new Color(255,255,0));
+	}
+	else if(input >= 10 && input < 14){
+	    sky.setColor(new Color(0,0,255));
+	    FilledOval sun = new FilledOval(FRAME_WIDTH/2-SUN_DIAMETER/2, 0,
+					    SUN_DIAMETER, SUN_DIAMETER, canvas);
+	    sun.setColor(new Color(255,255,0));
+	}
+	else if(input >=14 && input < 18){
+	    sky.setColor(new Color(0,0,255));
+	    FilledOval sun = new FilledOval(FRAME_WIDTH-SUN_DIAMETER, 0,
+					    SUN_DIAMETER, SUN_DIAMETER, canvas);
+	    sun.setColor(new Color(255,255,0));
+	}
+	else{
+	    sky.setColor(new Color(255,0,255));
+	}
+        
+        scnr.close();
+    }    
+    
+    public static void main(String[] args) {  
+        new Sky().startController(FRAME_WIDTH+PADDING, FRAME_HEIGHT+PADDING);
+        return;
+    } 
+}

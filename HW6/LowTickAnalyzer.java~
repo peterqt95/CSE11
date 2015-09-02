@@ -1,0 +1,19 @@
+/********************************************************************
+ * ID: A11163016
+ * NAME: Peter Tran
+ * LOGIN: cs11ehc
+ *
+ * Compilation:
+ * About:
+ *******************************************************************/
+import java.awt.*; 
+import java.util.Scanner;
+
+public class LowTickAnalyzer extends StockAnalyzer { 
+    public void addStock(String[] tick) {
+	dates.add(tick[0]);
+	values.add(Double.valueOf(tick[3]));
+	
+	return;
+    }
+}

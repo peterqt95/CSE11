@@ -1,0 +1,30 @@
+/*************************************************************************
+ *  ID: A11163016 
+ *  NAME: Peter Tran
+ *  LOGIN: cs11ehc
+ *
+ *  Compilation:  
+ *  About:  
+ *************************************************************************/
+import java.awt.*;
+import java.util.Scanner;
+
+public class HighTickAnalyzer extends StockAnalyzer {
+
+	/**
+	 * Adds a stock tick to the stock analyzer. The analyzer assumes
+	 * that the stock tick has the form:
+	 * <p>
+	 * date, open value, high value, low value, close value, volume, adj close
+	 * <p>
+	 * @param tick a string array that represents a single stock tick
+	 * @return void
+	 */
+    public void addStock(String[] tick) {
+		dates.add(tick[0]);
+		values.add(Double.valueOf(tick[2]));
+
+		return;
+	}
+
+}
